@@ -124,7 +124,14 @@ class BST{
             _inOrder(root->rightchild);
         }
 
-        void _postOrder(Node *root){}
+        void _postOrder(Node *root){
+            if(root == NULL){
+                return;
+            }
+            _inOrder(root->leftchild);            
+            _inOrder(root->rightchild);
+            cout << root->val << "-->";
+        }
 };
 
 int main(){
