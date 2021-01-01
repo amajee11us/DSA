@@ -143,7 +143,6 @@ class ExpressionSolver{
                         i++;
                     } 
                     else if(s.top() == '('){
-                        cout << "Inside here " << endl;
                         char garbage = s.pop()->val;
                         i++;
                     }
@@ -168,6 +167,7 @@ class ExpressionSolver{
 
 int main(){
     string infix = "(A/(B-C)*D+E))";
+    cout << "INFIX EXPRESSION: " << infix << endl;
 
     ExpressionSolver exp(100);
     string postfix = exp.infixToPostfix(infix);
