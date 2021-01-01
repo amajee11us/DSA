@@ -18,7 +18,15 @@ class BST{
         void insert(int val){
             Node *node = new Node();
             node->val = val;
+            cout << "Insertng : " << val << endl;
             root = _insertNode(root, node);
+        }
+
+        int remove(int val){
+            int deleted_val = 0;
+            // delete element from the tree and re-configure
+            root = _deleteNode(root, val);
+            return deleted_val;
         }
 
         void display(int type){            
@@ -57,6 +65,47 @@ class BST{
             return root;
         }
 
+        Node* _deleteNode(Node *root, int key){
+            if(root == NULL){
+                return root;
+            }
+            else if(key < root->val){
+                root->leftchild = _deleteNode(root->leftchild, key);
+            }
+            else if(key > root->val){
+                root->rightchild = _deleteNode(root->rightchild, key);
+            }
+            else{
+                if(root->leftchild == NULL){
+                    Node *temp = root->rightchild;
+                    free(root);
+                    return temp;
+                }
+                else if(root->rightchild == NULL){
+                    Node *temp = root->leftchild;
+                    free(root);
+                    return temp;
+                }
+
+                // find the inorder successor of the root node
+                Node *temp = _inOrderSuccessor(root->rightchild);
+
+                root->val = temp->val;
+
+                root->rightchild = _deleteNode(root->rightchild, temp->val);
+                free(temp);
+            }
+            return root;
+        }
+
+        Node* _inOrderSuccessor(Node *node){
+            Node *current_node = node;
+            while(current_node != NULL && current_node->leftchild != NULL){
+                current_node = current_node->rightchild;
+            }
+            return current_node;
+        }
+
         void _preOrder(Node *root){
             if(root == NULL){
                 return;
@@ -66,7 +115,14 @@ class BST{
             _preOrder(root->rightchild);
         }
 
-        void _inOrder(Node *root){}
+        void _inOrder(Node *root){
+            if(root == NULL){
+                return;
+            }
+            _inOrder(root->leftchild);
+            cout << root->val << "-->";
+            _inOrder(root->rightchild);
+        }
 
         void _postOrder(Node *root){}
 };
@@ -74,15 +130,27 @@ class BST{
 int main(){
     BST tree;
 
-    tree.insert(100);
-    tree.insert(500);
-    tree.insert(20);
-    tree.insert(10);
+    tree.insert(50);
     tree.insert(30);
-    tree.insert(600);
-    tree.insert(300);
+    tree.insert(20);
+    tree.insert(40);
+    tree.insert(70);
+    tree.insert(60);
+    tree.insert(80);
 
-    tree.display(1);
+    tree.display(2);
+
+    cout << "Deleting the value : 20" << endl;
+    tree.remove(20);
+    tree.display(2);
+
+    cout << "Deleting the value : 30" << endl;
+    tree.remove(30);
+    tree.display(2);
+
+    cout << "Deleting the value : 60" << endl;
+    tree.remove(60);
+    tree.display(2);
     
     return 0;
 }
