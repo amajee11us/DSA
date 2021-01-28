@@ -33,11 +33,19 @@ int main(){
 
     int arr[] = {12, 11, 13, 5, 6};
 
-    insertSort(arr, 0, size);
-
+    cout << "Input array : " << endl;
     for(int i=0; i < size; i++){
         cout << arr[i] << "\t";
     }
+    cout << endl;
+
+    insertSort(arr, 0, size);
+ 
+    cout << "Output array : " << endl;
+    for(int i=0; i < size; i++){
+        cout << arr[i] << "\t";
+    }
+    cout << endl;
 
     return 0;
 }
