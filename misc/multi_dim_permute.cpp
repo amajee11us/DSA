@@ -3,14 +3,17 @@
 
 using namespace std;
 
-void display(int ***arr, int dims[]){
-    for(int i=0; i < dims[0]; i++){
-        for(int j =0; j < dims[1]; j++){
-            for(int k = 0; k < dims[2]; k++){
-                int ele = arr[i][j][k];
-                cout << ele << "\t";
+void display(int ****arr, int dims[]){
+    for(int n=0; n < dims[0]; n++){
+        for(int c=0; c < dims[1]; c++){
+            for(int h =0; h < dims[2]; h++){
+                for(int w = 0; w < dims[3]; w++){
+                    int ele = arr[n][c][h][w];
+                    cout << ele << "\t";
+                }
+                cout << endl;
             }
-            cout << endl;
+            cout << "--------------" << endl;
         }
         cout << "--------------" << endl;
     }
