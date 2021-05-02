@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <vector>
 #include <string>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -62,9 +63,12 @@ vector<string> find_duplicate(string s){
             }
             string comp_sub =  substring(s, j, j + 10);
             if (comp_sub == sub){
-                output.push_back(sub);
-                dup_count++;
-                break;
+                // search for a duplicate and do not add if already present
+                auto search_result = find(output.begin(), output.end(), comp_sub);
+                if(search_result == output.end()){
+                    output.push_back(sub);
+                    dup_count++;
+                }
             }
         }
     }
@@ -73,7 +77,8 @@ vector<string> find_duplicate(string s){
 
 int main(){
     vector<string> duplicates;
-    string s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT";
+    //string s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT";
+    string s = "AAAAAAAAAAAAA";
     duplicates= find_duplicate(s);
 
     int num_duplicates = duplicates.size();
