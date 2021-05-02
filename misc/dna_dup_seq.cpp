@@ -44,24 +44,43 @@ string substring(string s, int start_pos, int end_pos){
     return sub;
 }
 
-vector<string> find_duplicate(string s){
+bool validate_dna_seq(string s){
+    int len = s.length();
+    // 1. string len > 1 and < 105
+    if(!(len >= 1 && len <=105)){
+        return false;
+    }
+
+    bool char_check_flag = true;
+    for(int i = 0; i < len; i++){
+        if(s[i] != 'A' || s[i] != 'C' || s[i] != 'G'|| s[i] != 'T'){
+            char_check_flag = false;
+            break;
+        }
+    }
+    return char_check_flag;
+}
+
+vector<string> find_duplicate(string s, int min_len=10){
+    assert (validate_dna_seq(s)); // first validate the DNA sequence
+
     int len = s.length();
     
     vector<string> output;
     int dup_count = 0;
 
     for(int i = 0; i < len; i++){
-        if((i + 10) > len){
+        if((i + min_len) > len){
             break;
         }
         
-        string sub = substring(s, i, i + 10);
+        string sub = substring(s, i, i + min_len);
 
         for(int j = i + 1; j < len; j++){
-            if((j + 10) > len){
+            if((j + min_len) > len){
                 break;
             }
-            string comp_sub =  substring(s, j, j + 10);
+            string comp_sub =  substring(s, j, j + min_len);
             if (comp_sub == sub){
                 // search for a duplicate and do not add if already present
                 auto search_result = find(output.begin(), output.end(), comp_sub);
@@ -77,8 +96,8 @@ vector<string> find_duplicate(string s){
 
 int main(){
     vector<string> duplicates;
-    //string s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT";
-    string s = "AAAAAAAAAAAAA";
+    string s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT";
+    //string s = "AAAAAAAAAAAAA";
     duplicates= find_duplicate(s);
 
     int num_duplicates = duplicates.size();
