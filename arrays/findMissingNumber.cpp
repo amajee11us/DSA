@@ -15,11 +15,15 @@ int main(){
     int total_sum = N * (N + 1) / 2;
     int sum_of_target_array = 0;
 
+    /*
+    We can replace the function add with:
+    accumulate(first, last, sum) --> sum = 0 for us and will be overwritten
+    */
     for(int i = 0; i < (N - 1); i++)
         sum_of_target_array += arr[i];
     
     int missing_number = total_sum - sum_of_target_array;
     cout << "Missing Number : " << missing_number << endl;
-    
+
     return 0;
 }
