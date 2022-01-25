@@ -3,6 +3,13 @@
 
 using namespace std;
 
+/*
+Question:
+For a given Binary Tree (BT), 
+write a code to print the vertical traversal from the 
+leftmost to rightmost levels. 
+*/
+
 struct Node{
     int val;
     Node *leftchild;
